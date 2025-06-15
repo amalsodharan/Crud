@@ -3,14 +3,15 @@ const jwt = require('jsonwebtoken');
 
 const newUser = async (req, res) => {
     const { Users } = await initDb()
-    const { role, name, email } = req.body
+    const { role, name, email, password } = req.body
     try {
-         const newItem = await Users.create({ role, name, email })
-         const token = jwt.sign(
-              { id: newItem.id, role: newItem.role, name: newItem.name, email: newItem.email },
-              process.env.JWT_SECRET,
-              { expiresIn: '12hr' }
-         );
+          const input = { role, name, email, password, is_deleted : 0 }
+          const newItem = await Users.create(input)
+          const token = jwt.sign(
+               { id: newItem.id, role: newItem.role, name: newItem.name, email: newItem.email },
+               process.env.JWT_SECRET,
+               { expiresIn: '12hr' }
+          );
 
          res.status(201).json({ newItem: newItem, token: `JWT ${token}` })
     } catch (err){

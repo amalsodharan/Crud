@@ -3,19 +3,11 @@ const jwt = require('jsonwebtoken');
 
 const addTask =  async (req, res) => {
     const { Tasks } = await initDb()
-    const { task_name, time_required } = req.body
+    const { task_name, time_required, description, from_time, to_time } = req.body
     try {
-         const fetchItem = await Tasks.findOne({
-              where: {
-                   task_name: task_name
-              }
-         })
-         if (fetchItem == null) {
-              const addItem = await Tasks.create({ task_name, time_required })
-              res.status(201).json(addItem)
-         } else {
-              res.status(404).json({ message: `Book already exist` })
-         }
+          const input = { user_id: '6bf20b73-d9bf-4e39-a54f-a5bd80759bbb', task_name, time_required, description, from_time, to_time, status: 0, is_deleted: 0 }
+          const addItem = await Tasks.create(input)
+          res.status(201).json(addItem)
     } catch {
          res.status(400).json({ message: 'Error fetching data!' })
     }

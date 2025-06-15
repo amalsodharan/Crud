@@ -17,8 +17,20 @@ module.exports = (sequelize, Sequelize) => {
                type: Sequelize.STRING,
                allowNull: false,
           },
+          description: {
+               type: Sequelize.STRING,
+               allowNull: false,
+          },
+          from_time: {
+               type: Sequelize.TIME,
+               allowNull: false,
+          },
+          to_time: {
+               type: Sequelize.TIME,
+               allowNull: false,
+          },
           time_required: {
-               type: Sequelize.INTEGER,
+               type: Sequelize.STRING   ,
                allowNull: false,
           },
           status: {

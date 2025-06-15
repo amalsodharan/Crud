@@ -19,12 +19,13 @@ app.get('/', async (req, res) => {
 //User Section
 app.post('/rest/signUp', newUser);
 
-app.post('/rest/login', authenticateToken, userLogin);
+app.post('/rest/login', userLogin);
 
 app.get('/rest/list', authenticateToken, Auth('admin'), userList);
 
 //Task Section
-app.post('/rest/user/add', authenticateToken, addTask);
+app.post('/rest/user/add', addTask);
+// app.post('/rest/user/add', authenticateToken, addTask);
 
 app.get('/rest/user/view/', viewTasks);
 
