@@ -1,28 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-     return sequelize.define('User', {
-          id: {
+     return sequelize.define('Task', {
+          task_id: {
                type: Sequelize.UUID,
                defaultValue: Sequelize.UUIDV4,
                primaryKey: true
           },
-          role: {
-               type: Sequelize.STRING,
+          user_id: {
+               type: Sequelize.UUID,
                allowNull: false,
-               validate: {
-                    isIn: [['admin', 'user']],
-               },
-          },   
-          name: {
+               references: {
+                    model: 'Users',
+                    key: 'id'
+               }
+          },
+          task_name: {
                type: Sequelize.STRING,
                allowNull: false,
           },
-          email: {
-               type: Sequelize.STRING,
+          time_required: {
+               type: Sequelize.INTEGER,
                allowNull: false,
-               unique: true,
           },
-          password: {
-               type: Sequelize.STRING,
+          status: {
+               type: Sequelize.BOOLEAN,
                allowNull: false,
           },
           is_deleted: {
@@ -31,4 +31,3 @@ module.exports = (sequelize, Sequelize) => {
           },
      });
 };
-

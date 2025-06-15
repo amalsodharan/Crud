@@ -2,9 +2,10 @@ const express = require('express');
 const mariadb = require('mariadb');
 const authenticateToken = require('./middleware/authenticateToken');
 const Auth = require('./Auth');
+const initDb = require('./db.js');
 require('dotenv').config();
 const { newUser, userLogin, userList } = require('./Controllers/userController');
-const { addBook, viewBooks, changeBook } = require('./Controllers/bookController');
+const { addTask, viewTasks, changeTask } = require('./Controllers/taskController');
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -22,12 +23,12 @@ app.post('/rest/login', authenticateToken, userLogin);
 
 app.get('/rest/list', authenticateToken, Auth('admin'), userList);
 
-//Books Section
-app.post('/rest/user/add', authenticateToken, Auth('admin'), addBook);
+//Task Section
+app.post('/rest/user/add', authenticateToken, addTask);
 
-app.get('/rest/user/view/', viewBooks);
+app.get('/rest/user/view/', viewTasks);
 
-app.put('/rest/user/change', authenticateToken, Auth('admin'), changeBook);
+app.put('/rest/user/change', authenticateToken, changeTask);
 
 app.listen(port, () => {
      console.log(`server is running on ${port}`);

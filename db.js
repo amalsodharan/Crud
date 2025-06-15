@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const UserModel = require('./modules/User');
-const BooksModel = require('./modules/Books');
+const TasksModel = require('./modules/Task');
 require('dotenv').config();
 
 const sequelize = new Sequelize(
@@ -18,9 +18,9 @@ const sequelize = new Sequelize(
 
 const Op = Sequelize.Op;
 const Users = UserModel(sequelize, Sequelize);
-const Books = BooksModel(sequelize, Sequelize);
+const Tasks = TasksModel(sequelize, Sequelize);
 
-const Models = { Users, Books, Op };
+const Models = { Users, Tasks, Op };
 
 const connection = {};
 module.exports = async () => {
